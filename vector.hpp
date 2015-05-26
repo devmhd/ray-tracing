@@ -86,11 +86,7 @@ public:
         return Vector( -x, -y, -z );
     }
 
-    void print(){
 
-        printf("(%.2f, %.2f, %.2f)", x,y,z);
-
-    }
 
 
     friend Vector operator + ( const Vector& v1, const Vector& v2 )

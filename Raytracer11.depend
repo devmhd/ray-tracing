@@ -366,14 +366,12 @@
 1431009438 source:c:\users\mehedee zaman\desktop\raytracer11\ds.cpp
 	"ds.h"
 
-1432654216 source:c:\users\mehedee zaman\desktop\raytracer11\main.cpp
+1432655624 source:c:\users\mehedee zaman\desktop\raytracer11\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	"consts.hpp"
 	"Camera.h"
-	"object.hpp"
-	"sphere.hpp"
-	"plane.hpp"
+	"Ray.hpp"
 	"bitmap_image.hpp"
 
 1432642238 c:\users\mehedee zaman\desktop\raytracer11\common.h
@@ -394,7 +392,7 @@
 
 1432639715 c:\users\mehedee zaman\desktop\raytracer11\consts.hpp
 
-1432642075 c:\users\mehedee zaman\desktop\raytracer11\vector.hpp
+1432655101 c:\users\mehedee zaman\desktop\raytracer11\vector.hpp
 
 1432652267 c:\users\mehedee zaman\desktop\raytracer11\object.hpp
 	"Ray.hpp"
