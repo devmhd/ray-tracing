@@ -1,6 +1,6 @@
 #include "math.h"
 #include "vector.hpp"
-
+/*
 class plane
 {
 public:
@@ -17,5 +17,5 @@ public:
     //};
 };
 
-
+*/
 
