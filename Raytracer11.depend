@@ -366,7 +366,7 @@
 1431009438 source:c:\users\mehedee zaman\desktop\raytracer11\ds.cpp
 	"ds.h"
 
-1432666995 source:c:\users\mehedee zaman\desktop\raytracer11\main.cpp
+1432670552 source:c:\users\mehedee zaman\desktop\raytracer11\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	"consts.hpp"
@@ -374,6 +374,7 @@
 	"object.hpp"
 	"sphere.hpp"
 	"plane.hpp"
+	"world.hpp"
 	"bitmap_image.hpp"
 
 1432662396 c:\users\mehedee zaman\desktop\raytracer11\common.h
@@ -392,16 +393,19 @@
 
 1432636943 c:\users\mehedee zaman\desktop\raytracer11\point.hpp
 
-1432639715 c:\users\mehedee zaman\desktop\raytracer11\consts.hpp
+1432669273 c:\users\mehedee zaman\desktop\raytracer11\consts.hpp
 
 1432655101 c:\users\mehedee zaman\desktop\raytracer11\vector.hpp
 
-1432666743 c:\users\mehedee zaman\desktop\raytracer11\object.hpp
+1432668171 c:\users\mehedee zaman\desktop\raytracer11\object.hpp
 	"Ray.hpp"
 
 1432649998 c:\users\mehedee zaman\desktop\raytracer11\ray.hpp
 
-1432666973 c:\users\mehedee zaman\desktop\raytracer11\sphere.hpp
+1432668047 c:\users\mehedee zaman\desktop\raytracer11\sphere.hpp
 
-1432664444 c:\users\mehedee zaman\desktop\raytracer11\plane.hpp
+1432668038 c:\users\mehedee zaman\desktop\raytracer11\plane.hpp
+
+1432673679 c:\users\mehedee zaman\desktop\raytracer11\world.hpp
+	<stdio.h>
 

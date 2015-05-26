@@ -55,7 +55,7 @@ public:
 */
 
 
-class PlanePrim : public Primitive
+class PlanePrim : public Object
 {
 public:
 

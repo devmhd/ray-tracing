@@ -9,6 +9,7 @@
 #include "object.hpp"
 #include "sphere.hpp"
 #include "plane.hpp"
+#include "world.hpp"
 
 #include "bitmap_image.hpp"
 
@@ -93,158 +94,7 @@ void drawGrid()
 // Scene class definition
 // -----------------------------------------------------------
 
-class Scene
-{
-public:
-    Scene() : m_Primitives( 0 ), m_Primitive( 0 ) {}
-    ~Scene()
-    {
-        delete m_Primitive;
-    }
-    void InitScene()
-    {
-        m_Primitive = new Primitive*[500];
 
-        /**/
-
-        m_Primitive[0] = new Sphere( Vector( 40.0, 0.0f, 10.0f ), 10.0f );
-
-        m_Primitive[0]->coeff_reflection =  0.2f ;
-        m_Primitive[0]->coeff_diff =  .20f ;
-        m_Primitive[0]->coeff_spec = .2f;
-        m_Primitive[0]->shininess = 5;
-        m_Primitive[0]->color = ( Color( 0.0f, 1.0f, 0.0f ) );
-
-        m_Primitive[1] = new Sphere( Vector( 30.0f,60.0f,20.0f), 20.0f );
-
-        m_Primitive[1]->coeff_reflection =  0.2f ;
-
-        m_Primitive[1]->coeff_diff =  0.1f ;
-        m_Primitive[1]->coeff_spec = .3;
-        m_Primitive[1]->shininess = 10000;
-        m_Primitive[1]->color = ( Color( 0.0, 0.0, 1.0) );
-
-        m_Primitive[2] = new Sphere( Vector( 15.0f,15.0f,45.0f), 15.0f );
-
-        m_Primitive[2]->coeff_reflection =  .2f ;
-        m_Primitive[2]->coeff_diff =  0.3f ;
-        m_Primitive[2]->coeff_spec = .1;
-        m_Primitive[2]->shininess = 10;
-        m_Primitive[2]->color = ( Color( 1.0, 1.0, 0.0) );
-
-        // light source 1
-        m_Primitive[3] = new Sphere( Vector( 70, 70, 70 ), 2.0f );
-        m_Primitive[3]->isLight = ( true );
-        m_Primitive[3]->color = ( Color(1.0f,1.0f,1.0f ) );
-        // light source 2
-        m_Primitive[4] = new Sphere( Vector( -70,70,70), 2.0f );
-        m_Primitive[4]->isLight = ( true );
-        m_Primitive[4]->color = ( Color(1.0f,1.0f,1.0f )) ;
-
-        //cube
-        float h=10;
-
-        m_Primitive[5] = new PlanePrim( Vector( 0, 1, 0 ), Vector(0,0,0 ), 10);
-
-        m_Primitive[5]->coeff_reflection =  .6 ;
-        m_Primitive[5]->coeff_diff =  .20f ;
-        m_Primitive[5]->coeff_spec = .1;
-        m_Primitive[5]->shininess = 5;
-        m_Primitive[5]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
-
-        m_Primitive[6] = new PlanePrim( Vector( 0, -1, 0 ), Vector(0,h,0 ), 10);
-
-        m_Primitive[6]->coeff_reflection =  .6 ;
-        m_Primitive[6]->coeff_diff =  .20f ;
-        m_Primitive[6]->coeff_spec = .1;
-        m_Primitive[6]->shininess = 5;
-        m_Primitive[6]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
-
-        m_Primitive[7] = new PlanePrim( Vector( 0, 0, -1 ), Vector(0,0,0 ), 10);
-
-        m_Primitive[7]->coeff_reflection =  .6 ;
-        m_Primitive[7]->coeff_diff =  .20f ;
-        m_Primitive[7]->coeff_spec = .1;
-        m_Primitive[7]->shininess = 5;
-        m_Primitive[7]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
-
-
-        m_Primitive[8] = new PlanePrim( Vector( 0, 0, 1 ), Vector(0,0,h ), 10);
-
-        m_Primitive[8]->coeff_reflection =  .6 ;
-        m_Primitive[8]->coeff_diff =  .20f ;
-        m_Primitive[8]->coeff_spec = .1;
-        m_Primitive[8]->shininess = 5;
-        m_Primitive[8]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
-
-
-        m_Primitive[9] = new PlanePrim( Vector( -1, 0, 0 ), Vector(0,0,0 ), 10);
-
-        m_Primitive[9]->coeff_reflection =  .6 ;
-        m_Primitive[9]->coeff_diff =  .20f ;
-        m_Primitive[9]->coeff_spec = .1;
-        m_Primitive[9]->shininess = 5;
-        m_Primitive[9]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
-
-
-        m_Primitive[10] = new PlanePrim( Vector( 1, 0, 0 ), Vector(h,0,0 ), 10);
-
-        m_Primitive[10]->coeff_reflection =  .6 ;
-        m_Primitive[10]->coeff_diff =  .20f ;
-        m_Primitive[10]->coeff_spec = .1;
-        m_Primitive[10]->shininess = 5;
-        m_Primitive[10]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
-
-
-//cube
-
-
-        /*  m_Primitive[4] = new PlanePrim( Vector( 0, 0, 1 ), Vector(0,0,0 ));
-
-          m_Primitive[4]->coeff_reflection =  0 ;
-          m_Primitive[4]->coeff_diff =  1.0f ;
-          m_Primitive[4]->color = ( Color( 1.0f, 1.0f, 1.0f  ) );
-
-          m_Primitive[5] = new PlanePrim( Vector( 0, 0, 1 ), Vector(0,20,0 ));
-
-          m_Primitive[5]->coeff_reflection =  0 ;
-          m_Primitive[5]->coeff_diff =  1.0f ;
-          m_Primitive[5]->color = ( Color( 0.0f, 0.0f, 0.0f ) );*/
-
-
-        int p=11;
-        for(int i=0,m=-5; i<10; i++,m++)
-        {
-            for(int j=0,n=-5; j<10; j++,n++)
-            {
-                m_Primitive[p+i*10+j] = new PlanePrim( Vector( 0, 0, 1 ), Vector(m*30,n*30,0 ), 30);
-
-                m_Primitive[p+i*10+j]->coeff_reflection =  0 ;
-                m_Primitive[p+i*10+j]->coeff_diff =  1.0f ;
-                if (i%2==0 && j%2==0)m_Primitive[p+i*10+j]->color = ( Color( 0.0f, 0.0f, 0.0f ) );
-                 else if(i%2==0 && j%2!=0) m_Primitive[p+i*10+j]->color = ( Color( 1.0f, 1.0f, 1.0f ) );
-               else if (i%2!=0 && j%2!=0) m_Primitive[p+i*10+j]->color = ( Color( 0.0f, 0.0f, 0.0f ) );
-                else if(i%2!=0 &&  j%2==0) m_Primitive[p+i*10+j]->color = ( Color( 1.0f, 1.0f, 1.0f ) );
-            }
-        }
-
-
-        // set number of primitives
-        m_Primitives =p+100;
-    }
-
-    int GetNrPrimitives()
-    {
-        return m_Primitives;
-    }
-    Primitive* GetPrimitive( int a_Idx )
-    {
-        return m_Primitive[a_Idx];
-    }
-private:
-    int m_Primitives;
-    Primitive** m_Primitive;
-} scn;
 
 
 void keyboardListener(unsigned char key, int x,int y)
@@ -330,41 +180,7 @@ void animate()
     glutPostRedisplay();
 }
 
-//<<<<<<<<<<<<<<<<<<<<<<<<<< myReshape >>>>>>>>>>>>>>>>>>>
-void myReshape(int width, int height)
-{
-    // adjust the camera aspect ratio to match that of the viewport
-    /* students do here: update screenWidth and screenHeight;
-       update nCols, nRows in camera;
-       update camera's shape */
-    if(height == 0)
-        height = 1;
 
-    float ratio = 1.0*width/height;
-
-    // Reset the coordinate system before modifying
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    // Set the viewport to be the entire window
-    glViewport(0, 0, width, height);
-
-    // Set the correct perspective.
-    gluPerspective(45,ratio,1.0,10000.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(0.0,0.0,5.0,
-              0.0,0.0,-1.0,
-              0.0f,1.0f,0.0f);
-
-    screenWidth=width;
-    screenHeight=height;
-    //to update nCols nRows camera's shape
-    cam.setShape(20.0,screenWidth/(float)screenHeight,1.0, 10000.0); // match it to viewport
-    cam.setDisplay(screenHeight, screenWidth); //sets nRows, nCols in camera
-
-    //glViewport(0, 0, screenWidth, screenHeight); // update viewport
-}
 
 void saveBitmap()
 {
@@ -382,21 +198,21 @@ void saveBitmap()
 
     image.save_image("test09_color_map_image.bmp");
 }
-Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& a_Dist )
+Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& a_Dist )
 {
     if (a_Depth > TRACEDEPTH) return 0;
     // trace primary ray
     a_Dist = 1000000.0f;
     Vector pi;//point of intersection
 
-    Primitive* prim = 0;
+    Object* prim = 0;
     //a_Acc = Color( 0, 0, 0);
     int result;
     float n= 1000005.0f;
     // find the nearest intersection
-    for ( int s = 0; s < scn.GetNrPrimitives(); s++ )
+    for ( int s = 0; s < scn.GetNrObjects(); s++ )
     {
-        Primitive* pr = scn.GetPrimitive( s );
+        Object* pr = scn.GetObject( s );
         int res;
         res = pr->intersect( a_Ray, a_Dist );
         if (res)
@@ -428,23 +244,23 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
         pi = a_Ray.origin + a_Ray.direction * a_Dist;
         // trace lights
         a_Acc += 0.4*prim->color;
-        for ( int l = 0; l < scn.GetNrPrimitives(); l++ )
+        for ( int l = 0; l < scn.GetNrObjects(); l++ )
         {
-            Primitive* p = scn.GetPrimitive( l );
+            Object* p = scn.GetObject( l );
             if (p->isLight)
             {
-                Primitive* light = p;
+                Object* light = p;
 
                 float shade = 1.0f;
-                if (light->type == Primitive::SPHERE)
+                if (light->type == Object::SPHERE)
                 {
                     Vector L = ((Sphere*)light)->center - pi;
                     float tdist = L.length();
                     L *= (1.0f / tdist);
                     Ray r = Ray( pi + L * EPSILON, L );
-                    for ( int s = 0; s < scn.GetNrPrimitives(); s++ )
+                    for ( int s = 0; s < scn.GetNrObjects(); s++ )
                     {
-                        Primitive* pr = scn.GetPrimitive( s );
+                        Object* pr = scn.GetObject( s );
                         if ((pr != light) && (pr->intersect( r, tdist )))
                         {
                             shade = 0;
@@ -511,7 +327,7 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
 
 
 
-void raytracer(Scene& scn, int blockSize)
+void raytracer(World& scn, int blockSize)
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity(); //set to identity
@@ -677,7 +493,7 @@ void myInit(void)
     glShadeModel(GL_SMOOTH); // or could be GL_FLAT
     glEnable(GL_NORMALIZE);
 
-    scn.InitScene();
+    scn.loadFromFile();
     doRayTrace=0;
 
 
@@ -687,22 +503,8 @@ void myInit(void)
 //<<<<<<<<<<<<<<<<<<<<<< main >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 int main(int argc, char **argv)
 {
-     /*glutInit(&argc, argv);
-     glutInitDisplayMode(GLUT_RGB |GLUT_DEPTH);
-     glutInitWindowSize(screenWidth, screenHeight);
-     glutInitWindowPosition(10, 10);
-     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
-     glutCreateWindow("my ECE661 raytracer");
-     glutKeyboardFunc(keyboardListener);
-     glutSpecialFunc(specialKeyListener);
-     myInit();
+    freopen("input.txt","r",stdin);
 
-     glutReshapeFunc(myReshape);
-     glutDisplayFunc(display);
-
-     glutMainLoop();*/
-
-    ///////////////
     glutInit(&argc,argv);
     glutInitWindowSize(screenHeight, screenWidth);
     glutInitWindowPosition(0, 0);
