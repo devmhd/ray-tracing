@@ -12,11 +12,8 @@
 
 #include "bitmap_image.hpp"
 
-//class Scene;
-//############################ GLOBALS ########################
-//typedef Vector Color;
-Camera cam; // construct it
-// construct it
+
+Camera cam;
 
 int screenWidth = 512, screenHeight = 512;
 int doRayTrace = 0;
@@ -124,7 +121,7 @@ public:
 
         m_Primitive[1]->coeff_diff =  0.1f ;
         m_Primitive[1]->coeff_spec = .3;
-        m_Primitive[1]->shininess = 20;
+        m_Primitive[1]->shininess = 10000;
         m_Primitive[1]->color = ( Color( 0.0, 0.0, 1.0) );
 
         m_Primitive[2] = new Sphere( Vector( 15.0f,15.0f,45.0f), 15.0f );
@@ -145,9 +142,9 @@ public:
         m_Primitive[4]->color = ( Color(1.0f,1.0f,1.0f )) ;
 
         //cube
-        float h=30;
+        float h=10;
 
-        m_Primitive[5] = new PlanePrim( Vector( 0, 1, 0 ), Vector(0,0,0 ));
+        m_Primitive[5] = new PlanePrim( Vector( 0, 1, 0 ), Vector(0,0,0 ), 10);
 
         m_Primitive[5]->coeff_reflection =  .6 ;
         m_Primitive[5]->coeff_diff =  .20f ;
@@ -155,7 +152,7 @@ public:
         m_Primitive[5]->shininess = 5;
         m_Primitive[5]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
-        m_Primitive[6] = new PlanePrim( Vector( 0, -1, 0 ), Vector(0,h,0 ));
+        m_Primitive[6] = new PlanePrim( Vector( 0, -1, 0 ), Vector(0,h,0 ), 10);
 
         m_Primitive[6]->coeff_reflection =  .6 ;
         m_Primitive[6]->coeff_diff =  .20f ;
@@ -163,7 +160,7 @@ public:
         m_Primitive[6]->shininess = 5;
         m_Primitive[6]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
-        m_Primitive[7] = new PlanePrim( Vector( 0, 0, -1 ), Vector(0,0,0 ));
+        m_Primitive[7] = new PlanePrim( Vector( 0, 0, -1 ), Vector(0,0,0 ), 10);
 
         m_Primitive[7]->coeff_reflection =  .6 ;
         m_Primitive[7]->coeff_diff =  .20f ;
@@ -172,7 +169,7 @@ public:
         m_Primitive[7]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
 
-        m_Primitive[8] = new PlanePrim( Vector( 0, 0, 1 ), Vector(0,0,h ));
+        m_Primitive[8] = new PlanePrim( Vector( 0, 0, 1 ), Vector(0,0,h ), 10);
 
         m_Primitive[8]->coeff_reflection =  .6 ;
         m_Primitive[8]->coeff_diff =  .20f ;
@@ -181,7 +178,7 @@ public:
         m_Primitive[8]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
 
-        m_Primitive[9] = new PlanePrim( Vector( -1, 0, 0 ), Vector(0,0,0 ));
+        m_Primitive[9] = new PlanePrim( Vector( -1, 0, 0 ), Vector(0,0,0 ), 10);
 
         m_Primitive[9]->coeff_reflection =  .6 ;
         m_Primitive[9]->coeff_diff =  .20f ;
@@ -190,7 +187,7 @@ public:
         m_Primitive[9]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
 
-        m_Primitive[10] = new PlanePrim( Vector( 1, 0, 0 ), Vector(h,0,0 ));
+        m_Primitive[10] = new PlanePrim( Vector( 1, 0, 0 ), Vector(h,0,0 ), 10);
 
         m_Primitive[10]->coeff_reflection =  .6 ;
         m_Primitive[10]->coeff_diff =  .20f ;
@@ -220,7 +217,7 @@ public:
         {
             for(int j=0,n=-5; j<10; j++,n++)
             {
-                m_Primitive[p+i*10+j] = new PlanePrim( Vector( 0, 0, 1 ), Vector(m*30,n*30,0 ));
+                m_Primitive[p+i*10+j] = new PlanePrim( Vector( 0, 0, 1 ), Vector(m*30,n*30,0 ), 30);
 
                 m_Primitive[p+i*10+j]->coeff_reflection =  0 ;
                 m_Primitive[p+i*10+j]->coeff_diff =  1.0f ;
@@ -439,9 +436,9 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
                 Primitive* light = p;
 
                 float shade = 1.0f;
-                if (light->GetType() == Primitive::SPHERE)
+                if (light->type == Primitive::SPHERE)
                 {
-                    Vector L = ((Sphere*)light)->GetCentre() - pi;
+                    Vector L = ((Sphere*)light)->center - pi;
                     float tdist = L.length();
                     L *= (1.0f / tdist);
                     Ray r = Ray( pi + L * EPSILON, L );
@@ -458,7 +455,7 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
 
 
                 // calculate diffuse shading
-                Vector L = ((Sphere*)light)->GetCentre() - pi;
+                Vector L = ((Sphere*)light)->center - pi;
                 L.normalize();
                 Vector N = prim->getNormal( pi );
                 if (prim->coeff_diff > 0)

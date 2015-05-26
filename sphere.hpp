@@ -69,26 +69,23 @@ public:
 class Sphere : public Primitive
 {
 public:
-    int GetType()
-    {
-        return SPHERE;
-    }
+
+   Vector center;
+    float sqRadius, radius, rRadius;
+
     Sphere( const Vector& a_Centre, float a_Radius ) :
-        m_Centre( a_Centre ), m_SqRadius( a_Radius * a_Radius ),
-        m_Radius( a_Radius ), m_RRadius( 1.0f / a_Radius ) {}
-    Vector& GetCentre()
-    {
-        return m_Centre;
-    }
-    float GetSqRadius()
-    {
-        return m_SqRadius;
-    }
+        center( a_Centre ), sqRadius( a_Radius * a_Radius ),
+        radius( a_Radius ), rRadius( 1.0f / a_Radius ) {
+
+            type = SPHERE;
+        }
+
+
     int intersect( Ray& a_Ray, float& a_Dist )
     {
-        Vector v = a_Ray.origin - m_Centre;
+        Vector v = a_Ray.origin - center;
         float b = -v.dot( a_Ray.direction );
-        float det = (b * b) - v.dot(v) + m_SqRadius;
+        float det = (b * b) - v.dot(v) + sqRadius;
         int retval = MISS;
         if (det > 0)
         {
@@ -120,11 +117,10 @@ public:
 
     Vector getNormal( Vector& a_Pos )
     {
-        return (a_Pos - m_Centre) * m_RRadius;
+        return (a_Pos - center) * rRadius;
     }
-private:
-    Vector m_Centre;
-    float m_SqRadius, m_Radius, m_RRadius;
+
+
 };
 
 

@@ -60,11 +60,12 @@ class PlanePrim : public Primitive
 public:
 
     Vector N,D;
+    float armLength;
     int GetType()
     {
         return PLANE;
     }
-    PlanePrim( const Vector& a_Normal, const Vector& a_D ) : N(a_Normal), D(a_D ) {};
+    PlanePrim( const Vector& a_Normal, const Vector& a_D , float _armLength) : N(a_Normal), D(a_D ), armLength(_armLength) {};
     Vector& getNormal()
     {
         return N;
@@ -76,7 +77,7 @@ public:
     int intersect( Ray& a_Ray, float& a_Dist )
     {
         Vector pi;
-        float h=30;
+     //   float h=30;
         float d = N.dot(a_Ray.direction) ;
         if (d != 0)
         {
@@ -85,8 +86,8 @@ public:
             {
                 pi = a_Ray.origin + a_Ray.direction * dist;
 
-                if(pi.x>=D.x-1 && pi.x<=D.x+h && pi.y>=D.y-1 && pi.y<=D.y+h &&
-                        pi.z>=D.z-1 && pi.z<=D.z+h)
+                if(pi.x>=D.x-1 && pi.x<=D.x+armLength && pi.y>=D.y-1 && pi.y<=D.y+armLength &&
+                        pi.z>=D.z-1 && pi.z<=D.z+armLength)
                 {
                     if (dist < a_Dist)
                     {

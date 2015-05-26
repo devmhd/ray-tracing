@@ -44,7 +44,7 @@ public:
     static const int INSIDE_OBJ = -1;
 
     bool isLight;
-
+    int type;
     Color color;
     float coeff_reflection, coeff_diff, coeff_amb, coeff_spec,shininess;
 
@@ -52,7 +52,7 @@ public:
         isLight = false;
     }
 
-    virtual int GetType() = 0;
+   
     virtual int intersect( Ray& a_Ray, float& a_Dist ) = 0;
     virtual Vector getNormal( Vector& a_Pos ) = 0;
 
