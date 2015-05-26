@@ -111,109 +111,108 @@ public:
         /**/
 
         m_Primitive[0] = new Sphere( Vector( 40.0, 0.0f, 10.0f ), 10.0f );
-        m_Primitive[0]->SetName( "big sphere" );
-        m_Primitive[0]->SetReflection( 0.2f );
-        m_Primitive[0]->SetDiffuse( .20f );
-        m_Primitive[0]->SetSpecular(.2f);
-        m_Primitive[0]->SetShininess(5);
-        m_Primitive[0]->SetColor( Color( 0.0f, 1.0f, 0.0f ) );
+
+        m_Primitive[0]->coeff_reflection =  0.2f ;
+        m_Primitive[0]->coeff_diff =  .20f ;
+        m_Primitive[0]->coeff_spec = .2f;
+        m_Primitive[0]->shininess = 5;
+        m_Primitive[0]->color = ( Color( 0.0f, 1.0f, 0.0f ) );
 
         m_Primitive[1] = new Sphere( Vector( 30.0f,60.0f,20.0f), 20.0f );
-        m_Primitive[1]->SetName( "small sphere" );
-        m_Primitive[1]->SetReflection( 0.2f );
-        m_Primitive[1]->SetRefraction( 0.8f );
-        m_Primitive[1]->SetRefrIndex( 0.8f );
-        m_Primitive[1]->SetDiffuse( 0.1f );
-        m_Primitive[1]->SetSpecular(.3);
-        m_Primitive[1]->SetShininess(20);
-        m_Primitive[1]->SetColor( Color( 0.0, 0.0, 1.0) );
+
+        m_Primitive[1]->coeff_reflection =  0.2f ;
+
+        m_Primitive[1]->coeff_diff =  0.1f ;
+        m_Primitive[1]->coeff_spec = .3;
+        m_Primitive[1]->shininess = 20;
+        m_Primitive[1]->color = ( Color( 0.0, 0.0, 1.0) );
 
         m_Primitive[2] = new Sphere( Vector( 15.0f,15.0f,45.0f), 15.0f );
-        m_Primitive[2]->SetName( "smal lsphere" );
-        m_Primitive[2]->SetReflection( .2f );
-        m_Primitive[2]->SetDiffuse( 0.3f );
-        m_Primitive[2]->SetSpecular(.1);
-        m_Primitive[2]->SetShininess(10);
-        m_Primitive[2]->SetColor( Color( 1.0, 1.0, 0.0) );
+
+        m_Primitive[2]->coeff_reflection =  .2f ;
+        m_Primitive[2]->coeff_diff =  0.3f ;
+        m_Primitive[2]->coeff_spec = .1;
+        m_Primitive[2]->shininess = 10;
+        m_Primitive[2]->color = ( Color( 1.0, 1.0, 0.0) );
 
         // light source 1
         m_Primitive[3] = new Sphere( Vector( 70, 70, 70 ), 2.0f );
-        m_Primitive[3]->Light( true );
-        m_Primitive[3]->SetColor( Color(1.0f,1.0f,1.0f ) );
+        m_Primitive[3]->isLight = ( true );
+        m_Primitive[3]->color = ( Color(1.0f,1.0f,1.0f ) );
         // light source 2
         m_Primitive[4] = new Sphere( Vector( -70,70,70), 2.0f );
-        m_Primitive[4]->Light( true );
-        m_Primitive[4]->SetColor( Color(1.0f,1.0f,1.0f )) ;
+        m_Primitive[4]->isLight = ( true );
+        m_Primitive[4]->color = ( Color(1.0f,1.0f,1.0f )) ;
 
         //cube
         float h=30;
 
         m_Primitive[5] = new PlanePrim( Vector( 0, 1, 0 ), Vector(0,0,0 ));
-        m_Primitive[5]->SetName( "plane" );
-        m_Primitive[5]->SetReflection( .6 );
-        m_Primitive[5]->SetDiffuse( .20f );
-        m_Primitive[5]->SetSpecular(.1);
-        m_Primitive[5]->SetShininess(5);
-        m_Primitive[5]->SetColor( Color( 1.0f, 0.0f, 0.0f  ) );
+
+        m_Primitive[5]->coeff_reflection =  .6 ;
+        m_Primitive[5]->coeff_diff =  .20f ;
+        m_Primitive[5]->coeff_spec = .1;
+        m_Primitive[5]->shininess = 5;
+        m_Primitive[5]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
         m_Primitive[6] = new PlanePrim( Vector( 0, -1, 0 ), Vector(0,h,0 ));
-        m_Primitive[6]->SetName( "plane" );
-        m_Primitive[6]->SetReflection( .6 );
-        m_Primitive[6]->SetDiffuse( .20f );
-        m_Primitive[6]->SetSpecular(.1);
-        m_Primitive[6]->SetShininess(5);
-        m_Primitive[6]->SetColor( Color( 1.0f, 0.0f, 0.0f  ) );
+
+        m_Primitive[6]->coeff_reflection =  .6 ;
+        m_Primitive[6]->coeff_diff =  .20f ;
+        m_Primitive[6]->coeff_spec = .1;
+        m_Primitive[6]->shininess = 5;
+        m_Primitive[6]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
         m_Primitive[7] = new PlanePrim( Vector( 0, 0, -1 ), Vector(0,0,0 ));
-        m_Primitive[7]->SetName( "plane" );
-        m_Primitive[7]->SetReflection( .6 );
-        m_Primitive[7]->SetDiffuse( .20f );
-        m_Primitive[7]->SetSpecular(.1);
-        m_Primitive[7]->SetShininess(5);
-        m_Primitive[7]->SetColor( Color( 1.0f, 0.0f, 0.0f  ) );
+
+        m_Primitive[7]->coeff_reflection =  .6 ;
+        m_Primitive[7]->coeff_diff =  .20f ;
+        m_Primitive[7]->coeff_spec = .1;
+        m_Primitive[7]->shininess = 5;
+        m_Primitive[7]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
 
         m_Primitive[8] = new PlanePrim( Vector( 0, 0, 1 ), Vector(0,0,h ));
-        m_Primitive[8]->SetName( "plane" );
-        m_Primitive[8]->SetReflection( .6 );
-        m_Primitive[8]->SetDiffuse( .20f );
-        m_Primitive[8]->SetSpecular(.1);
-        m_Primitive[8]->SetShininess(5);
-        m_Primitive[8]->SetColor( Color( 1.0f, 0.0f, 0.0f  ) );
+
+        m_Primitive[8]->coeff_reflection =  .6 ;
+        m_Primitive[8]->coeff_diff =  .20f ;
+        m_Primitive[8]->coeff_spec = .1;
+        m_Primitive[8]->shininess = 5;
+        m_Primitive[8]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
 
         m_Primitive[9] = new PlanePrim( Vector( -1, 0, 0 ), Vector(0,0,0 ));
-        m_Primitive[9]->SetName( "plane" );
-        m_Primitive[9]->SetReflection( .6 );
-        m_Primitive[9]->SetDiffuse( .20f );
-        m_Primitive[9]->SetSpecular(.1);
-        m_Primitive[9]->SetShininess(5);
-        m_Primitive[9]->SetColor( Color( 1.0f, 0.0f, 0.0f  ) );
+
+        m_Primitive[9]->coeff_reflection =  .6 ;
+        m_Primitive[9]->coeff_diff =  .20f ;
+        m_Primitive[9]->coeff_spec = .1;
+        m_Primitive[9]->shininess = 5;
+        m_Primitive[9]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
 
         m_Primitive[10] = new PlanePrim( Vector( 1, 0, 0 ), Vector(h,0,0 ));
-        m_Primitive[10]->SetName( "plane" );
-        m_Primitive[10]->SetReflection( .6 );
-        m_Primitive[10]->SetDiffuse( .20f );
-        m_Primitive[10]->SetSpecular(.1);
-        m_Primitive[10]->SetShininess(5);
-        m_Primitive[10]->SetColor( Color( 1.0f, 0.0f, 0.0f  ) );
+
+        m_Primitive[10]->coeff_reflection =  .6 ;
+        m_Primitive[10]->coeff_diff =  .20f ;
+        m_Primitive[10]->coeff_spec = .1;
+        m_Primitive[10]->shininess = 5;
+        m_Primitive[10]->color = ( Color( 1.0f, 0.0f, 0.0f  ) );
 
 
 //cube
 
 
         /*  m_Primitive[4] = new PlanePrim( Vector( 0, 0, 1 ), Vector(0,0,0 ));
-          m_Primitive[4]->SetName( "plane" );
-          m_Primitive[4]->SetReflection( 0 );
-          m_Primitive[4]->SetDiffuse( 1.0f );
-          m_Primitive[4]->SetColor( Color( 1.0f, 1.0f, 1.0f  ) );
+
+          m_Primitive[4]->coeff_reflection =  0 ;
+          m_Primitive[4]->coeff_diff =  1.0f ;
+          m_Primitive[4]->color = ( Color( 1.0f, 1.0f, 1.0f  ) );
 
           m_Primitive[5] = new PlanePrim( Vector( 0, 0, 1 ), Vector(0,20,0 ));
-          m_Primitive[5]->SetName( "plane" );
-          m_Primitive[5]->SetReflection( 0 );
-          m_Primitive[5]->SetDiffuse( 1.0f );
-          m_Primitive[5]->SetColor( Color( 0.0f, 0.0f, 0.0f ) );*/
+
+          m_Primitive[5]->coeff_reflection =  0 ;
+          m_Primitive[5]->coeff_diff =  1.0f ;
+          m_Primitive[5]->color = ( Color( 0.0f, 0.0f, 0.0f ) );*/
 
 
         int p=11;
@@ -222,13 +221,13 @@ public:
             for(int j=0,n=-5; j<10; j++,n++)
             {
                 m_Primitive[p+i*10+j] = new PlanePrim( Vector( 0, 0, 1 ), Vector(m*30,n*30,0 ));
-                m_Primitive[p+i*10+j]->SetName( "plane" );
-                m_Primitive[p+i*10+j]->SetReflection( 0 );
-                m_Primitive[p+i*10+j]->SetDiffuse( 1.0f );
-                if (i%2==0 && j%2==0)m_Primitive[p+i*10+j]->SetColor( Color( 0.0f, 0.0f, 0.0f ) );
-                 else if(i%2==0 && j%2!=0) m_Primitive[p+i*10+j]->SetColor( Color( 1.0f, 1.0f, 1.0f ) );
-               else if (i%2!=0 && j%2!=0) m_Primitive[p+i*10+j]->SetColor( Color( 0.0f, 0.0f, 0.0f ) );
-                else if(i%2!=0 &&  j%2==0) m_Primitive[p+i*10+j]->SetColor( Color( 1.0f, 1.0f, 1.0f ) );
+
+                m_Primitive[p+i*10+j]->coeff_reflection =  0 ;
+                m_Primitive[p+i*10+j]->coeff_diff =  1.0f ;
+                if (i%2==0 && j%2==0)m_Primitive[p+i*10+j]->color = ( Color( 0.0f, 0.0f, 0.0f ) );
+                 else if(i%2==0 && j%2!=0) m_Primitive[p+i*10+j]->color = ( Color( 1.0f, 1.0f, 1.0f ) );
+               else if (i%2!=0 && j%2!=0) m_Primitive[p+i*10+j]->color = ( Color( 0.0f, 0.0f, 0.0f ) );
+                else if(i%2!=0 &&  j%2==0) m_Primitive[p+i*10+j]->color = ( Color( 1.0f, 1.0f, 1.0f ) );
             }
         }
 
@@ -402,7 +401,7 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
     {
         Primitive* pr = scn.GetPrimitive( s );
         int res;
-        res = pr->Intersect( a_Ray, a_Dist );
+        res = pr->intersect( a_Ray, a_Dist );
         if (res)
         {
             //if(a_Dist<n)
@@ -420,7 +419,7 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
     }
 
     // handle intersection
-    if (prim->IsLight())
+    if (prim->isLight)
     {
         // we hit a light, stop tracing
         a_Acc = Color( 1.0f, 1.0f, 1.0f );
@@ -431,11 +430,11 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
         a_Ray.direction.normalize() ;
         pi = a_Ray.origin + a_Ray.direction * a_Dist;
         // trace lights
-        a_Acc += 0.4*prim->GetColor();
+        a_Acc += 0.4*prim->color;
         for ( int l = 0; l < scn.GetNrPrimitives(); l++ )
         {
             Primitive* p = scn.GetPrimitive( l );
-            if (p->IsLight())
+            if (p->isLight)
             {
                 Primitive* light = p;
 
@@ -449,7 +448,7 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
                     for ( int s = 0; s < scn.GetNrPrimitives(); s++ )
                     {
                         Primitive* pr = scn.GetPrimitive( s );
-                        if ((pr != light) && (pr->Intersect( r, tdist )))
+                        if ((pr != light) && (pr->intersect( r, tdist )))
                         {
                             shade = 0;
                             break;
@@ -461,19 +460,19 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
                 // calculate diffuse shading
                 Vector L = ((Sphere*)light)->GetCentre() - pi;
                 L.normalize();
-                Vector N = prim->GetNormal( pi );
-                if (prim->GetDiffuse() > 0)
+                Vector N = prim->getNormal( pi );
+                if (prim->coeff_diff > 0)
                 {
                     float dot = N.dot(L);
                     if (dot > 0)
                     {
-                        float diff = dot * prim->GetDiffuse()* shade;
+                        float diff = dot * prim->coeff_diff* shade;
                         // add diffuse component to ray color
-                        a_Acc += diff *( prim->GetColor() * light->GetColor());
+                        a_Acc += diff *( prim->color * light->color);
                     }
                 }
 
-                if (prim->GetSpecular() > 0)
+                if (prim->coeff_spec > 0)
                 {
                     // point light source: sample once for specular highlight
                     Vector V = a_Ray.direction;
@@ -481,19 +480,19 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
                     float dot = V.dot(R);
                     if (dot > 0)
                     {
-                        float spec = powf( dot, 20 ) * prim->GetSpecular()* shade ;
+                        float spec = powf( dot, 20 ) * prim->coeff_spec* shade ;
                         // add specular component to ray color
-                        a_Acc += spec * light->GetColor();
+                        a_Acc += spec * light->color;
                     }
                 }
             }
 
 
         }
-        float refl = prim->GetReflection();
+        float refl = prim->coeff_reflection;
         if (refl > 0.0f)
         {
-            Vector N = prim->GetNormal( pi );
+            Vector N = prim->getNormal( pi );
             Vector R = a_Ray.direction - 2.0f * a_Ray.direction.dot(N) * N;
             if (a_Depth < TRACEDEPTH)
             {
@@ -502,47 +501,19 @@ Primitive* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, floa
                 Ray ray( pi + R * EPSILON, R );
                 // ray.SetOrigin(pi+ R * EPSILON);
                 Raytrace( ray, rc, a_Depth + 1, a_RIndex, dist );
-                a_Acc += refl * rc * prim->GetColor();
+                a_Acc += refl * rc * prim->color;
             }
         }
 
 
-// calculate refraction
-       /* float refr = prim->GetRefraction();
-        if ((refr > 0) && (a_Depth < TRACEDEPTH))
-        {
-            float rindex = prim->GetRefrIndex();
-            float n = a_RIndex / rindex;
-            Vector N = prim->GetNormal( pi ) * (float)result;
-            float cosI = -DOT( N, a_Ray.GetDirection() );
-            float cosT2 = 1.0f - n * n * (1.0f - cosI * cosI);
-            if (cosT2 > 0.0f)
-            {
-                Vector T = (n * a_Ray.GetDirection()) + (n * cosI - sqrtf( cosT2 )) * N;
-                Color rco( 0, 0, 0 );
-                float dis;
-                Ray  r( pi + T * EPSILON, T );
-                Raytrace( r, rco, a_Depth + 1, rindex, dis );
-                // apply Beer's law
-                Color absorbance = prim->GetColor() * 0.15f * -dis;
-                //Color transparency = Color( expf( absorbance.r ), expf( absorbance.g ), expf( absorbance.b ) );
-                a_Acc += refr * rco * prim->GetColor();
-            }
-        }*/
+
     }
     // return pointer to primitive hit by primary ray
     return prim;
 }
 
 
-void plot_pixel_display(int x,int y,float r,float g,float b)
-{
-    glBegin(GL_POINTS);
-    glColor3f(((float)r)/256.f,((float)g)/256.f,((float)b)/256.f);
-    glVertex2i(x,y);
-    glEnd();
-    glFlush();
-}
+
 void raytracer(Scene& scn, int blockSize)
 {
     glMatrixMode(GL_MODELVIEW);

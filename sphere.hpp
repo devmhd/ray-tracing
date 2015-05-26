@@ -84,7 +84,7 @@ public:
     {
         return m_SqRadius;
     }
-    int Intersect( Ray& a_Ray, float& a_Dist )
+    int intersect( Ray& a_Ray, float& a_Dist )
     {
         Vector v = a_Ray.origin - m_Centre;
         float b = -v.dot( a_Ray.direction );
@@ -118,7 +118,7 @@ public:
         return retval;
     }
 
-    Vector GetNormal( Vector& a_Pos )
+    Vector getNormal( Vector& a_Pos )
     {
         return (a_Pos - m_Centre) * m_RRadius;
     }

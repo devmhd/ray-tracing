@@ -65,7 +65,7 @@ public:
         return PLANE;
     }
     PlanePrim( const Vector& a_Normal, const Vector& a_D ) : N(a_Normal), D(a_D ) {};
-    Vector& GetNormal()
+    Vector& getNormal()
     {
         return N;
     }
@@ -73,7 +73,7 @@ public:
     {
         return D;
     }
-    int Intersect( Ray& a_Ray, float& a_Dist )
+    int intersect( Ray& a_Ray, float& a_Dist )
     {
         Vector pi;
         float h=30;
@@ -101,7 +101,7 @@ public:
     }
 
 
-    Vector GetNormal( Vector& a_Pos )
+    Vector getNormal( Vector& a_Pos )
     {
         return N;
     }
