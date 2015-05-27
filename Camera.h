@@ -103,19 +103,7 @@ public:
         W = aspect * H;
         setProjectionMatrix();
     }
-    void setAspect(float asp)
-    {
-        aspect = asp;
-        W = aspect * H;
-        setShape(viewAngle,aspect,nearDist,farDist);
-    }
-    void getShape(float& _viewAngle, float& _aspect, float& _nearDist, float& _farDist)
-    {
-        viewAngle = viewAngle;
-        aspect = _aspect;
-        nearDist = _nearDist;
-        farDist = _farDist;
-    }
+
     void rotAxes(Vector& a, Vector& b, float angle)
     {
         // rotate orthogonal vectors a (like x axis) and b(like y axia) through angle degrees
@@ -128,7 +116,7 @@ public:
     void setDefaultCamera()
     {
         // make default camera
-        setShape(45.0f, 640/(float)480, 0.1f, 200.0f); // good default values here
+        setShape(80.0f, 1, 0.1f, 200.0f); // good default values here
         sett(5.0, 5.0, 5.0, 0.0, 0.0, 0.0, 0, 1, 0);
     }
 

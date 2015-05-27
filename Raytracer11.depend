@@ -347,7 +347,7 @@
 	<math.h>
 	"camera.h"
 
-1432639581 c:\users\mehedee zaman\desktop\raytracer11\camera.h
+1432711067 c:\users\mehedee zaman\desktop\raytracer11\camera.h
 	"Point.hpp"
 	"common.h"
 
@@ -366,7 +366,7 @@
 1431009438 source:c:\users\mehedee zaman\desktop\raytracer11\ds.cpp
 	"ds.h"
 
-1432702554 source:c:\users\mehedee zaman\desktop\raytracer11\main.cpp
+1432713458 source:c:\users\mehedee zaman\desktop\raytracer11\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	"consts.hpp"
@@ -382,7 +382,7 @@
 	"math.h"
 	"vector.hpp"
 
-1430847718 c:\users\mehedee zaman\desktop\raytracer11\bitmap_image.hpp
+1432713024 c:\users\mehedee zaman\desktop\raytracer11\bitmap_image.hpp
 	<algorithm>
 	<cmath>
 	<cstdlib>
@@ -394,7 +394,7 @@
 
 1432636943 c:\users\mehedee zaman\desktop\raytracer11\point.hpp
 
-1432669273 c:\users\mehedee zaman\desktop\raytracer11\consts.hpp
+1432710298 c:\users\mehedee zaman\desktop\raytracer11\consts.hpp
 
 1432655101 c:\users\mehedee zaman\desktop\raytracer11\vector.hpp
 
@@ -407,7 +407,7 @@
 
 1432702222 c:\users\mehedee zaman\desktop\raytracer11\plane.hpp
 
-1432702244 c:\users\mehedee zaman\desktop\raytracer11\world.hpp
+1432711574 c:\users\mehedee zaman\desktop\raytracer11\world.hpp
 	<stdio.h>
 
 1432700770 c:\users\mehedee zaman\desktop\raytracer11\cube.hpp

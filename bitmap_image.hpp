@@ -1364,6 +1364,8 @@ private:
          delete[] data_;
       }
 
+      printf("bmp len %d\n", length_);
+
       data_ = new unsigned char[length_];
    }
 

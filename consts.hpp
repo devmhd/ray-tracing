@@ -1,7 +1,4 @@
-
-
-#define EPSILON			0.01f
-#define TRACEDEPTH		2
+#define EPSILON	0.01f
 
 int nBumps;
 int nPixel;

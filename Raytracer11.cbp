@@ -54,7 +54,6 @@
 		<Unit filename="object.hpp" />
 		<Unit filename="plane.hpp" />
 		<Unit filename="sphere.hpp" />
-		<Unit filename="util.hpp" />
 		<Unit filename="vector.hpp" />
 		<Unit filename="world.hpp" />
 		<Extensions>

@@ -59,6 +59,7 @@ public:
 
         scanf("%d", &nPixel);
 
+
         scanf("%d", &nShapes);
 
         printf("Bumps: %d\n Number of things: %d\n Resolution: %d x %d\n", nBumps, nShapes, nPixel, nPixel);
@@ -117,28 +118,25 @@ public:
                 scanf("%f %f %f", &x, &y, &z);
                 scanf("%f", &r);
 
-//               cubes[nCubes] = Cube(Point(x,y,z),r);
 
                 scanf("%f %f %f", &cr, &cg, &cb);
 
-                //              cubes[nCubes].setColor(Color(x,y,z));
+
 
                 scanf("%f", &amb);
-                //              cubes[nCubes].setambient(x);
+
 
                 scanf("%f", &diff);
-                //              cubes[nCubes].setdiffuse(x);
+
 
                 scanf("%f", &spec);
-                //              cubes[nCubes].setspecular(x);
+
 
                 scanf("%f", &refl);
-                //             cubes[nCubes].setreflection(x);
+
 
                 scanf("%f", &shin);
-                //            cubes[nCubes].setshininess(x);
 
-                //           nCubes++;
 
                 addCube(Vector(x,y,z), r, Color(cr,cg,cb), amb, diff, spec, refl, shin);
 
@@ -177,7 +175,7 @@ public:
             {
                 allObjects[p+i*10+j] = new Plane( Vector( 0, 0, 1 ), Vector(m*30,n*30,0 ), 30);
 
-                allObjects[p+i*10+j]->coeff_reflection =  0 ;
+                allObjects[p+i*10+j]->coeff_reflection =  0.3 ;
                 allObjects[p+i*10+j]->coeff_diff =  1.0f ;
                 if (i%2==0 && j%2==0)allObjects[p+i*10+j]->color = ( Color( 0.0f, 0.0f, 0.0f ) );
                 else if(i%2==0 && j%2!=0) allObjects[p+i*10+j]->color = ( Color( 1.0f, 1.0f, 1.0f ) );
@@ -186,7 +184,7 @@ public:
             }
         }
 
-        nObjects =p+100;
+        nObjects = p+100;
     }
 
     int GetNrObjects()

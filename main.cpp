@@ -1,10 +1,8 @@
-
 #include<windows.h>
 #include<GL/glut.h>
 #include "consts.hpp"
 
 #include "Camera.h"
-
 
 #include "object.hpp"
 #include "sphere.hpp"
@@ -14,11 +12,9 @@
 
 #include "bitmap_image.hpp"
 
-
 Camera cam;
 World world;
 
-int screenWidth = 512, screenHeight = 512;
 int doRayTrace = 0;
 float lightStrength = 1.0;
 float amount = 1.0;
@@ -62,22 +58,22 @@ void drawSquare(float a)
 void drawGrid()
 {
     int i;
-    //if(drawgrid==1)
+
     {
-        glColor3f(0.6, 0.6, 0.6);	//grey
+        glColor3f(0.6, 0.6, 0.6);
         glBegin(GL_LINES);
         {
             for(i=-8; i<=8; i++)
             {
 
                 if(i==0)
-                    continue;	//SKIP the MAIN axes
+                    continue;
 
-                //lines parallel to Y-axis
+
                 glVertex3f(i*10, -90, 0);
                 glVertex3f(i*10,  90, 0);
 
-                //lines parallel to X-axis
+
                 glVertex3f(-90, i*10, 0);
                 glVertex3f( 90, i*10, 0);
             }
@@ -88,16 +84,6 @@ void drawGrid()
 
 
 
-// -----------------------------------------------------------
-// Sphere primitive class definition
-// -----------------------------------------------------------
-
-// -----------------------------------------------------------
-// Scene class definition
-// -----------------------------------------------------------
-
-
-
 
 void keyboardListener(unsigned char key, int x,int y)
 {
@@ -105,19 +91,19 @@ void keyboardListener(unsigned char key, int x,int y)
     {
 
     case '1':
-        //drawgrid=1-drawgrid;
+
         cam.yaw(.8);
         break;
     case '2':
-        //drawgrid=1-drawgrid;
+
         cam.yaw(-.8);
         break;
     case '3':
-        //drawgrid=1-drawgrid;
+
         cam.pitch(.8);
         break;
     case '4':
-        //drawgrid=1-drawgrid;
+
         cam.pitch(-.8);
         break;
     case '5':
@@ -130,7 +116,7 @@ void keyboardListener(unsigned char key, int x,int y)
     default:
         break;
     }
-    //// glutPostRedisplay();
+
 }
 
 
@@ -138,26 +124,26 @@ void specialKeyListener(int key, int x,int y)
 {
     switch(key)
     {
-    case GLUT_KEY_DOWN:		//move backward
-        cam.slide(0,0,.8);
-        //cout<<"ereer";
+    case GLUT_KEY_DOWN:
+        cam.slide(0,-.8,0);
+
         break;
-    case GLUT_KEY_UP:		//move forward
-        cam.slide(0,0,-.8);
+    case GLUT_KEY_UP:
+        cam.slide(0,.8,0);
         break;
 
-    case GLUT_KEY_RIGHT:   //move right
+    case GLUT_KEY_RIGHT:
         cam.slide(.8,0,0);
         break;
-    case GLUT_KEY_LEFT:    //move left
+    case GLUT_KEY_LEFT:
         cam.slide(-.8,0,0);
         break;
 
-    case GLUT_KEY_PAGE_UP:  //move upward
-        cam.slide(0,.8,0);
+    case GLUT_KEY_PAGE_UP:
+        cam.slide(0,0,.8);
         break;
-    case GLUT_KEY_PAGE_DOWN:  //move downward
-        cam.slide(0,-.8,0);
+    case GLUT_KEY_PAGE_DOWN:
+        cam.slide(0,0,-.8);
         break;
 
     case GLUT_KEY_INSERT:
@@ -172,37 +158,18 @@ void specialKeyListener(int key, int x,int y)
     default:
         break;
     }
-    // glutPostRedisplay();
+
 }
 
 void animate()
 {
-//	angle+=0.05;
-    //codes for any changes in Models, Camera
     glutPostRedisplay();
 }
 
 
-
-void saveBitmap()
-{
-    const unsigned int dim = 300;
-    bitmap_image image(dim,dim);
-
-    for (unsigned int x = 0; x < dim; ++x)
-    {
-        for (unsigned int y = 0; y < dim; ++y)
-        {
-            rgb_store col = jet_colormap[(x + y) % dim];
-            image.set_pixel(x,y,col.red,col.green,col.blue);
-        }
-    }
-
-    image.save_image("test09_color_map_image.bmp");
-}
 Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& a_Dist )
 {
-    if (a_Depth > TRACEDEPTH) return 0;
+    if (a_Depth > nBumps) return 0;
     // trace primary ray
     a_Dist = 1000000.0f;
     Vector pi;//point of intersection
@@ -219,14 +186,14 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
         res = pr->intersect( a_Ray, a_Dist );
         if (res)
         {
-            //if(a_Dist<n)
+
             {
                 prim = pr;
-                result = res; // 0 = miss, 1 = hit, -1 = hit from inside primitive
+                result = res;
             }
         }
     }
-    // no hit, terminate ray
+
     if (!prim)
     {
         a_Acc = Color( 0, 0, 0);
@@ -271,7 +238,6 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
                     }
                 }
 
-
                 // calculate diffuse shading
                 Vector L = ((Sphere*)light)->center - pi;
                 L.normalize();
@@ -309,7 +275,7 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
         {
             Vector N = prim->getNormal( pi );
             Vector R = a_Ray.direction - 2.0f * a_Ray.direction.dot(N) * N;
-            if (a_Depth < TRACEDEPTH)
+            if (a_Depth < nBumps)
             {
                 Color rc( 0, 0, 0 );
                 float dist;
@@ -320,18 +286,15 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
             }
         }
 
-
-
     }
     // return pointer to primitive hit by primary ray
     return prim;
 }
 
-
-
 void raytracer(World& world, int blockSize)
 {
 
+    printf("w h %f %f\n", cam.W, cam.H);
 
     Ray theRay;
     theRay.origin = (Vector(cam.eye.x,cam.eye.y,cam.eye.z));
@@ -339,34 +302,34 @@ void raytracer(World& world, int blockSize)
     float blockHeight = 2 *cam.H / (float)cam.nRows;
 
 
-    float x, y;
-    const unsigned int dim = 300;
-    bitmap_image image(cam.nRows,cam.nCols);
+    printf("%f %f\n", blockWidth, blockHeight);
 
-    for(int row = 0; row < cam.nRows; row += blockSize)
+    float x, y;
+  //  const unsigned int dim = 300;
+    bitmap_image image(nPixel,nPixel);
+
+    for(int row = 0; row < cam.nRows; row ++)
     {
-        for(int col = 0; col < cam.nCols; col += blockSize)
+        for(int col = 0; col < cam.nCols; col ++)
         {
             Color clr(0,0,0);
 
             x = -cam.W + col * blockWidth;
             y = -cam.H + row * blockHeight;
+  //          printf("%d %d: x: %f, y %f ", row, col, x,y);
+
             theRay.direction =  Vector(-cam.nearDist * cam.n.x + x * cam.u.x + y *cam.v.x,
                                        -cam.nearDist * cam.n.y + x * cam.u.y + y * cam.v.y,
                                        -cam.nearDist * cam.n.z + x * cam.u.z + y * cam.v.z);
             theRay.direction.normalize();
 
 
-            int a_Depth=2;
+            int a_Depth=1;
             float a_RIndex=1 ,a_Dist=10 ;
+
+
             Raytrace( theRay,clr,  a_Depth, a_RIndex,  a_Dist );
 
-            //
-
-            //   cout<<clr.x<<" "<<clr.y<<" "<<clr.z<<endl;
-//            glColor3f(clr.x,clr.y,clr.z);
-//            glRecti(col,row,col+blockSize, row + blockSize);
-            //glRecti(row,col,row+blockSize, col + blockSize);
 
             float r=clr.x*256.0,g=clr.y*256.0,b=clr.z*256.0;
             if(r>255) r=255;
@@ -374,11 +337,15 @@ void raytracer(World& world, int blockSize)
             if(b>255) b=255;
 
 
-            image.set_pixel(col,cam.nRows-row,r,g,b);
 
-            printf("Done %d, %d\n", row, col);
+//        printf("%d %d :: %f, %f %f\n", col,cam.nRows-row, r,g,b);
+        image.set_pixel(col,cam.nRows-row,r,g,b);
+
         }
+
+        printf("Done %d\n", row);
     }
+
     image.save_image("output.bmp");
 
 }
@@ -445,7 +412,6 @@ void display(void)
 
             Sphere* sp = (Sphere*) ob;
 
-
             glPushMatrix();
             {
                 glTranslatef( sp->center.x, sp->center.y, sp->center.z );
@@ -459,10 +425,6 @@ void display(void)
 
     }
 
-
-
-
-
     if(doRayTrace)
     {
         raytracer(world,blockSize);
@@ -470,49 +432,39 @@ void display(void)
     }
     glutSwapBuffers();
 }
-void myInit(void)
-{
-
-    glColor3f(0.0f,0.0f,0.0f);
-    glShadeModel(GL_SMOOTH); // or could be GL_FLAT
-    glEnable(GL_NORMALIZE);
-
-    world.loadFromFile();
-    doRayTrace=0;
-
-
-
-}
 
 int main(int argc, char **argv)
 {
     freopen("input.txt","r",stdin);
+    world.loadFromFile();
 
     glutInit(&argc,argv);
-    glutInitWindowSize(screenHeight, screenWidth);
+    glutInitWindowSize(nPixel, nPixel);
     glutInitWindowPosition(0, 0);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);	//Depth, Double buffer, RGB color
 
-    glutCreateWindow("My OpenGL Program");
+    glutCreateWindow("My Awesome Raytracer");
 
-    myInit();
+    glColor3f(0.0f,0.0f,0.0f);
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_NORMALIZE);
 
+    doRayTrace=0;
     glEnable(GL_DEPTH_TEST);	//enable Depth Testing
     glDisable(GL_LIGHTING);
-    glViewport(0, 0, screenWidth, screenHeight);
+    glViewport(0, 0, nPixel, nPixel);
     cam.sett(50.0f,80.0f,100.0, 0,0.25f,0, 0,0,1);
-    // cam.sett(80, 20, 90, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
-    cam.setShape(80.0,screenWidth/(float)screenHeight,1.0, 10000.0);
-    // cam.setShape(80.0, 1, 1, 10000.0);
-    cam.setDisplay(screenHeight, screenWidth);
-    glutDisplayFunc(display);	//display callback function
-    glutIdleFunc(animate);		//what you want to do in the idle time (when no drawing is occuring)
-// glutReshapeFunc(myReshape);
+
+    cam.setShape(80.0,1.0,1.0, 10000.0);
+
+    cam.setDisplay(nPixel, nPixel);
+    glutDisplayFunc(display);
+    glutIdleFunc(animate);
+
     glutKeyboardFunc(keyboardListener);
     glutSpecialFunc(specialKeyListener);
-//	glutMouseFunc(mouseListener);
 
-    glutMainLoop();		//The main loop of OpenGL
+    glutMainLoop();
 
     return 0;
 }
