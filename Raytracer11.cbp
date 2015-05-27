@@ -46,10 +46,17 @@
 		</Linker>
 		<Unit filename="Camera.h" />
 		<Unit filename="Point.hpp" />
+		<Unit filename="Ray.hpp" />
 		<Unit filename="bitmap_image.hpp" />
 		<Unit filename="common.h" />
 		<Unit filename="consts.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="object.hpp" />
+		<Unit filename="plane.hpp" />
+		<Unit filename="sphere.hpp" />
+		<Unit filename="util.hpp" />
+		<Unit filename="vector.hpp" />
+		<Unit filename="world.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -9,6 +9,7 @@
 #include "object.hpp"
 #include "sphere.hpp"
 #include "plane.hpp"
+#include "cube.hpp"
 #include "world.hpp"
 
 #include "bitmap_image.hpp"
@@ -293,7 +294,7 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
                     float dot = V.dot(R);
                     if (dot > 0)
                     {
-                        float spec = powf( dot, 20 ) * prim->coeff_spec* shade ;
+                        float spec = powf( dot, 25 ) * prim->coeff_spec* shade ;
                         // add specular component to ray color
                         a_Acc += spec * light->color;
                     }
@@ -329,14 +330,7 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
 
 void raytracer(World& scn, int blockSize)
 {
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity(); //set to identity
-    glClearColor(0,0,0,0);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(0,cam.nCols,0,cam.nRows); // whole screen is the window
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_LIGHTING); // so glColor3f() will work
+
 
     Ray theRay;
     theRay.origin = (Vector(cam.eye.x,cam.eye.y,cam.eye.z));
@@ -361,19 +355,16 @@ void raytracer(World& scn, int blockSize)
                                          -cam.nearDist * cam.n.z + x * cam.u.z + y * cam.v.z);
             theRay.direction.normalize();
 
-            //	clr.sett(scn.shade(theRay)); // get color of this ray
-            //clr.add(scn.ambient);//add ambient light
-            //glColor3f(clr.red,clr.green,clr.blue); // set current color
-            //glRecti(col,row,col+blockSize, row + blockSize);
-            int a_Depth=1;
+
+            int a_Depth=2;
             float a_RIndex=1 ,a_Dist=10 ;
             Raytrace( theRay,clr,  a_Depth, a_RIndex,  a_Dist );
 
             //
 
             //   cout<<clr.x<<" "<<clr.y<<" "<<clr.z<<endl;
-            glColor3f(clr.x,clr.y,clr.z);
-            glRecti(col,row,col+blockSize, row + blockSize);
+//            glColor3f(clr.x,clr.y,clr.z);
+//            glRecti(col,row,col+blockSize, row + blockSize);
             //glRecti(row,col,row+blockSize, col + blockSize);
 
             float r=clr.x*256.0,g=clr.y*256.0,b=clr.z*256.0;
@@ -382,10 +373,10 @@ void raytracer(World& scn, int blockSize)
             if(b>255) b=255;
 
 
-            image.set_pixel(row,col,r,g,b);
+            image.set_pixel(col,cam.nRows-row,r,g,b);
         }
     }
-    image.save_image("test09.bmp");
+    image.save_image("output.bmp");
 
 }
 //<<<<<<<<<<<<<<<<<<<<<<< display >>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -397,13 +388,7 @@ void display(void)
 
     glClearColor(0,0,0,0);
 
-    //	glMatrixMode(GL_PROJECTION);
-    //	glLoadIdentity();
 
-    //glDisable(GL_DEPTH_TEST);
-
-    //glEnable(GL_DEPTH_TEST);
-    // cam.drawOpenGL(scn);
     glMatrixMode(GL_MODELVIEW);
     //  glLoadIdentity();
       cam.setModelViewMatrix(); // for this camera set up
@@ -411,11 +396,6 @@ void display(void)
 
 
 
-
-    //  gluOrtho2D(0,cam.nCols,0,cam.nRows); // whole screen is the window
-
-    //  drawGrid();
-    /**/
     for(int i=0,m=-5; i<10; i++,m++)
     {
         for(int j=0,n=-5; j<10; j++,n++)
@@ -427,9 +407,7 @@ void display(void)
                 else if(i%2==0 && j%2!=0)glColor3f( 1.0f, 1.0f, 1.0f  );
                 else if (i%2!=0 && j%2!=0)glColor3f( 0.0f, 0.0f, 0.0f );
                 else if(i%2!=0 &&  j%2==0)glColor3f( 1.0f, 1.0f, 1.0f  );
-               // else if(i%2!=0 && j%2==0)glColor3f( 1.0f, 1.0f, 1.0f  );
-                //else if(i%2!=0 && j%2!=0)  glColor3f( 0.0f, 0.0f, 0.0f  );
-               // glColor3f( 1.0f, 1.0f, 1.0f  );
+
 
                 drawSquare(15);
             }
@@ -437,6 +415,10 @@ void display(void)
         }
     }
     drawAxes();
+
+
+   // for(int i=0; i<scn.)
+
 
     glPushMatrix();
     {
@@ -484,8 +466,7 @@ void display(void)
         doRayTrace = 0;
     }
     glutSwapBuffers();
-} // end of display
-//<<<<<<<<<<<<<<<<<<<<<<<<<<< myinit >>>>>>>>>>>>>>>>>>>>>>>>>>>.
+}
 void myInit(void)
 {
 
@@ -498,9 +479,8 @@ void myInit(void)
 
 
 
-} // end of myInit
+}
 
-//<<<<<<<<<<<<<<<<<<<<<< main >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 int main(int argc, char **argv)
 {
     freopen("input.txt","r",stdin);
