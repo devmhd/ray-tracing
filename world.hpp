@@ -3,14 +3,15 @@
 class World
 {
 
-private:
-    int nObjects;
-    Object** allObjects;
-  //  Cube* allCubes;
-  //  int nCubes;
-
 
 public:
+
+    int nObjects;
+    Object** allObjects;
+    Cube* allCubes;
+    int nCubes;
+
+
     World() : nObjects( 0 ), allObjects( 0 ) {}
     ~World()
     {
@@ -41,7 +42,7 @@ public:
         }
 
 
-    //    allCubes[nCubes++] = Cube(lowPoint, armLength,color);
+        allCubes[nCubes++] = Cube(lowPoint, armLength,color);
 
     }
 
@@ -49,9 +50,9 @@ public:
     void loadFromFile()
     {
         allObjects = new Object*[500];
-   //     allCubes = new Cube[100];
+        allCubes = new Cube[100];
 
-        nObjects = 0;
+        nObjects = nCubes= 0;
         int nShapes;
 
         scanf("%d", &nBumps);
@@ -185,8 +186,6 @@ public:
             }
         }
 
-
-        // set number of primitives
         nObjects =p+100;
     }
 
@@ -199,4 +198,4 @@ public:
         return allObjects[a_Idx];
     }
 
-} scn;
+};

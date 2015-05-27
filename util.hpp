@@ -112,7 +112,7 @@ void readFromFile()
 
     }
 
-    printf("Spheres: %d, cubes: %d, Lights sources: %d\n", nSpheres, nCubes, nLightSources);
+       printf("     Spheres: %d, cubes: %d, Lights sources: %d\n", nSpheres, nCubes, nLightSources);
 
 
 

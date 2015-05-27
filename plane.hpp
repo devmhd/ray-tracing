@@ -7,11 +7,11 @@ public:
 
     Vector N,D;
     float armLength;
-    int GetType()
-    {
-        return PLANE;
-    }
-    Plane( const Vector& a_Normal, const Vector& a_D , float _armLength) : N(a_Normal), D(a_D ), armLength(_armLength) {};
+
+    Plane( const Vector& a_Normal, const Vector& a_D , float _armLength) : N(a_Normal), D(a_D ), armLength(_armLength) {
+
+        type = PLANE;
+    };
     Vector& getNormal()
     {
         return N;

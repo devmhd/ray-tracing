@@ -16,6 +16,7 @@
 
 
 Camera cam;
+World world;
 
 int screenWidth = 512, screenHeight = 512;
 int doRayTrace = 0;
@@ -139,7 +140,7 @@ void specialKeyListener(int key, int x,int y)
     {
     case GLUT_KEY_DOWN:		//move backward
         cam.slide(0,0,.8);
-       //cout<<"ereer";
+        //cout<<"ereer";
         break;
     case GLUT_KEY_UP:		//move forward
         cam.slide(0,0,-.8);
@@ -211,9 +212,9 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
     int result;
     float n= 1000005.0f;
     // find the nearest intersection
-    for ( int s = 0; s < scn.GetNrObjects(); s++ )
+    for ( int s = 0; s < world.GetNrObjects(); s++ )
     {
-        Object* pr = scn.GetObject( s );
+        Object* pr = world.GetObject( s );
         int res;
         res = pr->intersect( a_Ray, a_Dist );
         if (res)
@@ -245,9 +246,9 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
         pi = a_Ray.origin + a_Ray.direction * a_Dist;
         // trace lights
         a_Acc += 0.4*prim->color;
-        for ( int l = 0; l < scn.GetNrObjects(); l++ )
+        for ( int l = 0; l < world.GetNrObjects(); l++ )
         {
-            Object* p = scn.GetObject( l );
+            Object* p = world.GetObject( l );
             if (p->isLight)
             {
                 Object* light = p;
@@ -259,9 +260,9 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
                     float tdist = L.length();
                     L *= (1.0f / tdist);
                     Ray r = Ray( pi + L * EPSILON, L );
-                    for ( int s = 0; s < scn.GetNrObjects(); s++ )
+                    for ( int s = 0; s < world.GetNrObjects(); s++ )
                     {
-                        Object* pr = scn.GetObject( s );
+                        Object* pr = world.GetObject( s );
                         if ((pr != light) && (pr->intersect( r, tdist )))
                         {
                             shade = 0;
@@ -328,7 +329,7 @@ Object* Raytrace( Ray& a_Ray, Color& a_Acc, int a_Depth, float a_RIndex, float& 
 
 
 
-void raytracer(World& scn, int blockSize)
+void raytracer(World& world, int blockSize)
 {
 
 
@@ -351,8 +352,8 @@ void raytracer(World& scn, int blockSize)
             x = -cam.W + col * blockWidth;
             y = -cam.H + row * blockHeight;
             theRay.direction =  Vector(-cam.nearDist * cam.n.x + x * cam.u.x + y *cam.v.x,
-                                         -cam.nearDist * cam.n.y + x * cam.u.y + y * cam.v.y,
-                                         -cam.nearDist * cam.n.z + x * cam.u.z + y * cam.v.z);
+                                       -cam.nearDist * cam.n.y + x * cam.u.y + y * cam.v.y,
+                                       -cam.nearDist * cam.n.z + x * cam.u.z + y * cam.v.z);
             theRay.direction.normalize();
 
 
@@ -374,6 +375,8 @@ void raytracer(World& scn, int blockSize)
 
 
             image.set_pixel(col,cam.nRows-row,r,g,b);
+
+            printf("Done %d, %d\n", row, col);
         }
     }
     image.save_image("output.bmp");
@@ -391,8 +394,8 @@ void display(void)
 
     glMatrixMode(GL_MODELVIEW);
     //  glLoadIdentity();
-      cam.setModelViewMatrix(); // for this camera set up
-     cam.setProjectionMatrix();
+    cam.setModelViewMatrix(); // for this camera set up
+    cam.setProjectionMatrix();
 
 
 
@@ -417,52 +420,52 @@ void display(void)
     drawAxes();
 
 
-   // for(int i=0; i<scn.)
-
-
-    glPushMatrix();
+    for(int i=0; i<world.nCubes; i++)
     {
-        glTranslatef( 15.0 ,15.0 ,15.0 );
-        glColor3f(1.0, 0.0, 0.0 );
-        glutSolidCube(30);
+        Cube c = world.allCubes[i];
+
+        glPushMatrix();
+        {
+            glTranslatef( c.lowPoint.x + c.armLength/2.0 , c.lowPoint.y + c.armLength/2.0 , c.lowPoint.z + c.armLength/2.0 );
+            glColor3f(c.color.x, c.color.y, c.color.z);
+            glutSolidCube(c.armLength);
+
+        }
+        glPopMatrix();
 
     }
-    glPopMatrix();
-    glPushMatrix();
+
+    for(int i=0; i<world.nObjects; i++)
     {
-        glTranslatef( 15.0f,15.0f ,45.0f );
-        glColor3f(1.0, 1.0, 0.0 );
-        GLUquadricObj * quadric;
-        quadric = gluNewQuadric();
-        glutSolidSphere(10.0,20,20);
+
+        Object* ob = world.allObjects[i];
+
+        if(ob->type == Object::SPHERE)
+        {
+
+            Sphere* sp = (Sphere*) ob;
+
+
+            glPushMatrix();
+            {
+                glTranslatef( sp->center.x, sp->center.y, sp->center.z );
+                glColor3f(sp->color.x, sp->color.y, sp->color.z );
+                glutSolidSphere(sp->radius,20,20);
+
+            }
+            glPopMatrix();
+
+        }
 
     }
-    glPopMatrix();
-    glPushMatrix();
-    {
-        glTranslatef( 40.0, 0.0, 10.0 );
-        glColor3f(0.0, 1.0, 0.0 );
-        GLUquadricObj * quadric;
-        quadric = gluNewQuadric();
-        glutSolidSphere(10.0,20,20);
 
-    }
-    glPopMatrix();
 
-    glPushMatrix();
-    {
-        glTranslatef( 30.0 ,60.0 ,20.0 );
-        glColor3f(0.0, 0.0, 1.0 );
-        GLUquadricObj * quadric;
-        quadric = gluNewQuadric();
-        glutSolidSphere(20.0,20,20);
 
-    }
-    glPopMatrix();
+
 
     if(doRayTrace)
     {
-        raytracer(scn,blockSize);
+        raytracer(world,blockSize);
         doRayTrace = 0;
     }
     glutSwapBuffers();
@@ -474,7 +477,7 @@ void myInit(void)
     glShadeModel(GL_SMOOTH); // or could be GL_FLAT
     glEnable(GL_NORMALIZE);
 
-    scn.loadFromFile();
+    world.loadFromFile();
     doRayTrace=0;
 
 

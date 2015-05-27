@@ -48,8 +48,8 @@
 		<Unit filename="Point.hpp" />
 		<Unit filename="Ray.hpp" />
 		<Unit filename="bitmap_image.hpp" />
-		<Unit filename="common.h" />
 		<Unit filename="consts.hpp" />
+		<Unit filename="cube.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="object.hpp" />
 		<Unit filename="plane.hpp" />
