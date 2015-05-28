@@ -23,11 +23,11 @@ public:
     void addCube(Vector lowPoint, float armLength, Color color, float amb, float diff, float spec, float refl, float shin)
     {
 
-        allObjects[nObjects     ] = new Plane( Vector( 0, 1, 0 ), Vector(0,0,0 ), 10);
+        allObjects[nObjects     ] = new Plane( Vector( 0, 1, 0 ), Vector(0,0,0 ), armLength);
         allObjects[nObjects + 1 ] = new Plane( Vector( 0, -1, 0 ), Vector(0,armLength,0 ), armLength);
-        allObjects[nObjects + 2 ] = new Plane( Vector( 0, 0, -1 ), Vector(0,0,0 ), 10);
+        allObjects[nObjects + 2 ] = new Plane( Vector( 0, 0, -1 ), Vector(0,0,0 ), armLength);
         allObjects[nObjects + 3 ] = new Plane( Vector( 0, 0, 1 ), Vector(0,0,armLength ), armLength);
-        allObjects[nObjects + 4 ] = new Plane( Vector( -1, 0, 0 ), Vector(0,0,0 ), 10);
+        allObjects[nObjects + 4 ] = new Plane( Vector( -1, 0, 0 ), Vector(0,0,0 ), armLength);
         allObjects[nObjects + 5 ] = new Plane( Vector( 1, 0, 0 ), Vector(armLength,0,0 ), armLength);
 
         for(int i=0; i<6; ++i,nObjects++)
@@ -40,7 +40,6 @@ public:
             allObjects[nObjects]->color = color;
 
         }
-
 
         allCubes[nCubes++] = Cube(lowPoint, armLength,color);
 
@@ -104,7 +103,6 @@ public:
 
                 scanf("%f", &x);
                 allObjects[nObjects]->shininess =  x ;
-
 
                 nObjects++;
 

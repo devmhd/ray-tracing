@@ -17,6 +17,7 @@ public:
         return N;
     }
     Vector& GetD()
+
     {
         return D;
     }

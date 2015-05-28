@@ -2,37 +2,6 @@
 
 
 
-
-
-/*
-class Object
-{
-public:
-
-
-
-    int type;
-
-    Color color;
-    float reflection, diffuse, ambient, specular, shininess;
-    bool isLight;
-
-
-    Object(){};
-
-
-    virtual int intersect( Ray& ray, float& distance ) = 0;
-    virtual Vector getNormal( Vector& position ) = 0;
-
-
-
-
-};
-
-*/
-
-
-
 class Object
 {
 public:
